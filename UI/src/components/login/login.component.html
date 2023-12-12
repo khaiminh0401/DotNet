@@ -1,0 +1,17 @@
+<!-- login.component.html -->
+<div  class="min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded shadow-md w-96">
+      <h2 class="text-2xl font-semibold mb-6">Đăng Nhập</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="mb-4">
+          <label for="username" class="block text-sm font-medium text-gray-600">Tên đăng nhập</label>
+          <input type="text" formControlName="username" id="username" name="username" class="mt-1 p-2 w-full border rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-600">Mật khẩu</label>
+          <input type="password" formControlName="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Đăng Nhập</button>
+      </form>
+    </div>
+  </div>  
