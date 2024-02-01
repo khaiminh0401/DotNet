@@ -9,5 +9,5 @@ public interface IAccountRepository{
     Account GetAccount(int id);
     void CreateAccount(Account account);
 
-    Account LoginAccount(LoginAccount account);
+    Account LoginAccount(AccountDto account);
 }

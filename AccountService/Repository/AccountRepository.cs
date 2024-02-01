@@ -31,7 +31,7 @@ public class AccountRepository : IAccountRepository
         return _context.Account.ToList();
     }
 
-    public Account LoginAccount(LoginAccount account)
+    public Account LoginAccount(AccountDto account)
     {
         Account _account = _context.Account.Where(u=> u.Username == account.Username).FirstOrDefault();
         if (_account == null)

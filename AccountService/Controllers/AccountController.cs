@@ -70,7 +70,7 @@ public class AccountController : ControllerBase
         return BadRequest();
     }
     [HttpPost("auth")]
-    public IActionResult Login([FromBody] LoginAccount account)
+    public IActionResult Login([FromBody] AccountDto account)
     {
         try
         {
