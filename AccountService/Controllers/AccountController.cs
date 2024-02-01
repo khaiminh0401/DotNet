@@ -1,34 +1,41 @@
 using Microsoft.AspNetCore.Mvc;
 using AccountService.InterfaceRepository;
-using AccountService.Repository;
 using AccountService.Entities;
 using AccountService.Exception;
-using AccountService.Models;
 using Newtonsoft.Json;
-using AccountService.Filter;
+using AccountService.DTOs;
+using AccountService.InterfaceService;
 
 namespace AccountService.Controllers;
 
 [ApiController]
 [Route("api/account")]
 // [ServiceFilter(typeof(AccountFilter), Order=1)]
-public class AccountController : Controller
+public class AccountController : ControllerBase
 {
+    private readonly IAccountRepository _accountRepo;
+    private readonly IJwtService _jwtService;
 
-    private readonly IAccountRepository _accountRepo = new AccountRepository();
+    public AccountController(IAccountRepository accountRepo, IJwtService jwtService){
+        _accountRepo = accountRepo;
+        _jwtService = jwtService;
+    }
 
+    // GET: /api/account
     [HttpGet]
     public IActionResult FindAll()
     {
         return Ok(_accountRepo.GetAccounts());
     }
 
+    // GET: /api/account/{id}
     [HttpGet("{id}")]
     public IActionResult FindById(int id)
     {
         return Ok(_accountRepo.GetAccount(id));
     }
 
+    // POST: /api/account
     [HttpPost]
     public IActionResult Register([FromBody] Account account)
     {
@@ -62,15 +69,14 @@ public class AccountController : Controller
         }
         return BadRequest();
     }
-    [Route("/api/login")]
-    [HttpPost]
-    public IActionResult LoginAccount([FromBody] AccountModel account)
+    [HttpPost("auth")]
+    public IActionResult Login([FromBody] LoginAccount account)
     {
         try
         {
             Account _account = _accountRepo.LoginAccount(account);
-            HttpContext.Session.SetString("account", JsonConvert.SerializeObject(_account));
-            return Ok(account);
+            var token = _jwtService.GenerateToken(_account.Username,1000);
+            return Ok(token);
         }
         catch (InvalidParamsException e)
         {

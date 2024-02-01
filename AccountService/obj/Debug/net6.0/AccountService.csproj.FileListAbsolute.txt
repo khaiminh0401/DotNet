@@ -142,3 +142,5 @@ D:\VNPT\CSharp\AccountService\obj\Debug\net6.0\refint\AccountService.dll
 D:\VNPT\CSharp\AccountService\obj\Debug\net6.0\AccountService.pdb
 D:\VNPT\CSharp\AccountService\obj\Debug\net6.0\AccountService.genruntimeconfig.cache
 D:\VNPT\CSharp\AccountService\obj\Debug\net6.0\ref\AccountService.dll
+D:\VNPT\CSharp\AccountService\obj\Debug\net6.0\AccountService.sourcelink.json
+D:\VNPT\CSharp\AccountService\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

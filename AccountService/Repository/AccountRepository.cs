@@ -2,7 +2,7 @@ using AccountService.DBContext;
 using AccountService.Exception;
 using AccountService.InterfaceRepository;
 using AccountService.Entities;
-using AccountService.Models;
+using AccountService.DTOs;
 
 namespace AccountService.Repository;
 
@@ -31,7 +31,7 @@ public class AccountRepository : IAccountRepository
         return _context.Account.ToList();
     }
 
-    public Account LoginAccount(AccountModel account)
+    public Account LoginAccount(LoginAccount account)
     {
         Account _account = _context.Account.Where(u=> u.Username == account.Username).FirstOrDefault();
         if (_account == null)

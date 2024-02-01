@@ -1,5 +1,5 @@
+using AccountService.DTOs;
 using AccountService.Entities;
-using AccountService.Models;
 
 namespace AccountService.InterfaceRepository;
 
@@ -9,5 +9,5 @@ public interface IAccountRepository{
     Account GetAccount(int id);
     void CreateAccount(Account account);
 
-    Account LoginAccount(AccountModel account);
+    Account LoginAccount(LoginAccount account);
 }

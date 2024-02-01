@@ -1,4 +1,8 @@
 using AccountService.Filter;
+using AccountService.InterfaceRepository;
+using AccountService.InterfaceService;
+using AccountService.Repository;
+using AccountService.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSingleton<IAccountRepository, AccountRepository>();
 builder.Services.AddCors(o => o.AddPolicy("AllowAll", builder =>
     {
         builder.WithOrigins("http://localhost:4200")
@@ -25,8 +31,9 @@ builder.Services.AddControllersWithViews(config =>
     {
         config.Filters.Add(new AccountFilter());
     });
-builder.Services.AddScoped<AccountFilter>();
-
+builder.Services
+            .AddScoped<AccountFilter>()
+            .AddScoped<IJwtService,JwtService>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -36,9 +43,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseSession();
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 app.UseCors("AllowAll");
 app.MapControllers();
